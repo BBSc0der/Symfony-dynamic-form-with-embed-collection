@@ -1,0 +1,19 @@
+.question_content{
+    margin-left: 10px;
+    width: calc(100% - 133px);
+}
+.answear_content{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 147px);
+}
+input[type="checkbox"]{
+    width: 16px;
+    height: 16px;
+}
+.question{
+    margin-top: 20px;
+}
+.container{
+    margin-bottom: 20px;
+}

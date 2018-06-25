@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('jquery/jquery-3.3.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('jquery/addQuiz.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="margin-top:30px">
+        {% if errors == true %}
+            <div class="alert alert-danger">
+                Formularz posiada nieuzupełnione pola.
+            </div>
+        {% endif %}
+        {% if quiz is not null %}
+            <div class="alert alert-info">
+                <p>Nazwa: {{ quiz.name }} </p>
+                <p>Wielokrotnego wyboru: {{ quiz.multipleChoice }} </p>
+                <p>Liczba pytań: {{ quiz.numberOfQuestions }} </p>
+                {% for question in quiz.questions %}
+                    <div>
+                        Treść: {{question.content}}
+                        <div>
+                            {% for answer in question.answers %}
+                                <p>Treść: {{answer.content}} | poprawna: {{answer.correct}}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {{ form_start(form) }}
+        <p>
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </p>
+        <p>
+            {{ form_label(form.multipleChoice) }}
+            {{ form_errors(form.multipleChoice) }}
+            {{ form_widget(form.multipleChoice) }}
+        </p>
+        <p>
+            {{ form_label(form.numberOfQuestions) }}
+            {{ form_errors(form.numberOfQuestions) }}
+            {{ form_widget(form.numberOfQuestions) }}
+        </p>
+        <p>
+            {{ form_label(form.numberOfAnswers) }}
+            {{ form_errors(form.numberOfAnswers) }}
+            {{ form_widget(form.numberOfAnswers) }}
+        </p>
+        <div class='questions'>
+            {% for question in form.questions %}
+                <div class='question'>
+                    {{ loop.index }}
+                    {{ form_label(question.content) }}
+                    {{ form_errors(question.content) }}
+                    {{ form_widget(question.content) }}
+                    <div class='answers'>
+                        {% for answer in question.answers %}
+                            <div class='answer'>
+                                {{ form_label(answer.content) }}
+                                {{ form_errors(answer.content) }}
+                                {{ form_widget(answer.content) }}
+
+                                {{ form_label(answer.correct) }}
+                                {{ form_errors(answer.correct) }}
+                                {{ form_widget(answer.correct) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+
